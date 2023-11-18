@@ -1,10 +1,18 @@
+'use client'
+import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import Signin from './pages/Signin'
+import Signup from './pages/Signup'
+import Main from './pages/Main'
+import React from 'react'
 import { Link } from "@nextui-org/link";
-
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
+import { button as buttonStyles } from "@nextui-org/theme";
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+const router = useRouter()
 	return (
 		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
 			<div className="inline-block max-w-lg text-center justify-center">
@@ -22,19 +30,19 @@ export default function Home() {
 			<div className="flex gap-3">
 				<Link
 					isExternal
-					href={siteConfig.links.docs}
+					onClick={() => router.push('/signin')}
 					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
 				>
 					Sign In
 				</Link>
 				<Link
 					isExternal
+					onClick={() => router.push('/signup')}
 					className={buttonStyles({ variant: "bordered", radius: "full" })}
-					href={siteConfig.links.github}
 				>
-					GitHub
+					Sign Up
 				</Link>
 			</div>
-		</section>
+    	</section>
 	);
 }

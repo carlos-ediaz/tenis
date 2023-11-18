@@ -5,6 +5,8 @@ import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
 import { Navbar } from "@/components/navbar";
 import clsx from "clsx";
+import { Suspense } from 'react'
+import { NavigationEvents } from '../components/navigation-events'
 
 export const metadata: Metadata = {
 	title: {
@@ -41,6 +43,9 @@ export default function RootLayout({
 					<div className="relative flex flex-col h-screen">
 						<main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
 							{children}
+							<Suspense fallback={null}>
+								<NavigationEvents />
+							</Suspense>
 						</main>
 					</div>
 				</Providers>
