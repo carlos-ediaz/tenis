@@ -1,6 +1,6 @@
 'use client' 
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { title } from "@/components/primitives";
 import {Button, Divider, Input} from "@nextui-org/react";
 import { ErrorMessage, Formik } from 'formik';
@@ -10,6 +10,9 @@ import { z } from 'zod';
 import React from "react";
 import {EyeFilledIcon} from "./EyeFilledIcon";
 import {EyeSlashFilledIcon} from "./EyeSlashFilledIcon";
+import UserContext from '../context/UserContext';
+import {signUpUser} from '../api/users'
+import { useRouter } from 'next/navigation'
 
 const signUpSchema = z
     .object({
@@ -32,6 +35,8 @@ const initialValues = {
     }
     
 export default function SignUpPage() {
+    const router = useRouter()
+    const { user, setUser } = useContext(UserContext);
     const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -40,8 +45,28 @@ export default function SignUpPage() {
             <Formik
                 initialValues={initialValues}
                 onSubmit={async (values, { setSubmitting }) => {
+                    const formData = new FormData();
+                    for (const value in values) {
+                        if (value!=='confirmpassword') {
+                            formData.append(value, values[value]);
+                        }
+                    }
+                    try {
+                        const { data } = await signUpUser(formData);
+                        console.log(data)
+    
+                        router.push(
+                            `/signed?email=${values.email}`
+                        );
+                    }
+                    catch (error) {
+                        console.log(error)
+                    }
                     setSubmitting(false);
-                    console.log(values)
+                    console.log(values);
+                    setUser(
+                        values
+                    )
                 }}
                 validationSchema={toFormikValidationSchema(signUpSchema)}
             >

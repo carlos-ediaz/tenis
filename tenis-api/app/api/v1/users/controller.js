@@ -13,6 +13,7 @@ import {
 export const signup = async (req, res, next) => {
   const { body = {} } = req;
   const payload = {};
+  console.log(body);
   payload.name = body.name;
   payload.lastname = body.lastname;
   payload.email = body.email;
@@ -58,6 +59,7 @@ export const signup = async (req, res, next) => {
       }
     }
     next(error);
+    console.log(error);
   }
 };
 
