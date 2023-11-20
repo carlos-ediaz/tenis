@@ -56,7 +56,7 @@ export default function SignUpPage() {
                         console.log(data)
     
                         router.push(
-                            `/signed?email=${values.email}`
+                            `/signed/${values.email}`
                         );
                     }
                     catch (error) {
