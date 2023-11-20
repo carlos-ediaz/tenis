@@ -1,10 +1,5 @@
 'use client'
-import { Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import Signin from './pages/Signin'
-import Signup from './pages/Signup'
-import Main from './pages/Main'
+
 import React from 'react'
 import { Link } from "@nextui-org/link";
 import { title, subtitle } from "@/components/primitives";
